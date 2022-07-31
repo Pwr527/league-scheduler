@@ -5,20 +5,30 @@ from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from varname import nameof
 from scheduler import db
+from dataclasses import dataclass
 
+
+@dataclass
 class Place(db.Model):
     __tablename__ = "place"
+    
+    id: int
+    name: str
+
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String, unique=True)
 
     def __init__(self, name, available_times=None):
         self.name = name
         self.available_times = available_times
     def __str__(self):
         return self.name
-    
+
+
+@dataclass
 class Game(db.Model):
     __tablename__ = "game"
+
     id = Column(Integer, primary_key=True)
     team1_id = db.Column(Integer, ForeignKey('team.id'), nullable=False)
     team2_id = db.Column(Integer, ForeignKey('team.id'), nullable=False)
@@ -35,6 +45,7 @@ class Game(db.Model):
         return f"{self.time} - {self.place.name} - {self.team1.name} vs {self.team2.name} "
     
 
+@dataclass
 class Scheduler:
     def __init__(self, teams, place):
         self.teams = teams
@@ -54,10 +65,15 @@ class Scheduler:
         raise Exception("Not enough available timeslots!") 
 
 
+@dataclass
 class Team(db.Model):
     __tablename__ = "team"
+
+    id: int
+    name: str
+
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String, unique=True)
     
     def __init__(self, name):
         self.name = name

@@ -17,11 +17,12 @@ def create_app():
         LAYOUT = "_layout.html"
     )
 
-    from .controllers import team, schedule, place
+    from .controllers import team, schedule, place, api
     
     app.register_blueprint(team.bp)
     app.register_blueprint(place.bp)
     app.register_blueprint(schedule.bp)
+    app.register_blueprint(api.bp)
 
     db.init_app(app)
    
