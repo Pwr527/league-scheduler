@@ -1,21 +1,10 @@
+from pathlib import Path
 from itertools import combinations
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from varname import nameof
-
-db = SQLAlchemy()
-
-class Team(db.Model):
-    __tablename__ = "team"
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    
-    def __init__(self, name):
-        self.name = name
-    def __str__(self):
-        return self.name
-        
+from scheduler import db
 
 class Place(db.Model):
     __tablename__ = "place"
@@ -27,14 +16,12 @@ class Place(db.Model):
         self.available_times = available_times
     def __str__(self):
         return self.name
-
+    
 class Game(db.Model):
     __tablename__ = "game"
     id = Column(Integer, primary_key=True)
     team1_id = db.Column(Integer, ForeignKey('team.id'), nullable=False)
-    team1 = relationship(nameof(Team), foreign_keys=[team1_id])
     team2_id = db.Column(Integer, ForeignKey('team.id'), nullable=False)
-    team2 = relationship(nameof(Team), foreign_keys=[team1_id])
     place = relationship(nameof(Place))
     place_id = db.Column(Integer, ForeignKey('place.id'), nullable=False)
     time = Column(DateTime)
@@ -46,7 +33,8 @@ class Game(db.Model):
         self.time = time
     def __str__(self):
         return f"{self.time} - {self.place.name} - {self.team1.name} vs {self.team2.name} "
-        
+    
+
 class Scheduler:
     def __init__(self, teams, place):
         self.teams = teams
@@ -64,3 +52,15 @@ class Scheduler:
             if len(l.available_times) > 0:
                 return l, l.available_times.pop(0)
         raise Exception("Not enough available timeslots!") 
+
+
+class Team(db.Model):
+    __tablename__ = "team"
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    
+    def __init__(self, name):
+        self.name = name
+    def __str__(self):
+        return self.name
+

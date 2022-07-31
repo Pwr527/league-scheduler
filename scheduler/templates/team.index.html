@@ -1,0 +1,9 @@
+{% if teams %}
+    <ul class="list-group">
+    {% for team in teams %}
+        <li class="list-group-item">{{team}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    No teams found.
+{% endif %}

@@ -1,0 +1,9 @@
+{% if schedules %}
+    <ul class="list-group">
+    {% for schedule in schedules %}
+        <li class="list-group-item">{{schedule}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    No schedules found.
+{% endif %}

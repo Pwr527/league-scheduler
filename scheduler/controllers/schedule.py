@@ -2,13 +2,16 @@
 from flask import (
     g, Blueprint, render_template, request, session, url_for, current_app, flash
 )
-from scheduler.db import get_db
 from scheduler.models import *
 from scheduler import render_layout
 
-bp = Blueprint("schedule", __name__, url_prefix="/schedule")
+bp = Blueprint("schedule", __name__, url_prefix="/schedules")
 
-@bp.route('/view', methods=['POST'])
+@bp.route('/')
+def index():
+    return render_layout()
+
+@bp.route('/', methods=['POST'])
 def view():
 
     teams = list(map(lambda team: Team(team.strip()), request.form['teams'].split(',')))

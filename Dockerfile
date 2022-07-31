@@ -2,7 +2,7 @@
 FROM python:3.9-slim
 
 RUN apt-get update && apt upgrade
-RUN apt-get install -y python3-psycopg2
+RUN apt-get install -y python3-psycopg2 libpq-dev gcc 
 
 EXPOSE 8080
 

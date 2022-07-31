@@ -6,6 +6,6 @@ Jinja2
 MarkupSafe
 Werkzeug
 varname
-psycopg2-binary
+psycopg2
 Flask-SQLAlchemy
 Flask-Migrate
