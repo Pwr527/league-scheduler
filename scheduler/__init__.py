@@ -12,7 +12,7 @@ def create_app():
 
     app.config.from_mapping(
         SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"],
+        SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"].replace('postgres://', 'postgresql://'),
         SQLALCHEMY_TRACK_MODIFICATIONS = False,
         LAYOUT = "_layout.html"
     )
@@ -51,14 +51,3 @@ def create_app():
 
 def render_layout(**kwargs):
     return render_template(current_app.config['LAYOUT'], **kwargs)
-
-
-# @click.command("drop-db")
-# @with_appcontext
-# def drop_db_command():
-#     drop_db()
-
-# @click.command("create-db")
-# @with_appcontext
-# def create_db_command():
-#     create_db()
