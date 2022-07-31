@@ -8,18 +8,22 @@ bp = Blueprint("team", __name__, url_prefix="/teams")
   
 @bp.route('/', methods=['GET'])
 def index():
-    return render_layout()
+    teams = Team.query.all()
+    return render_layout(teams=teams)
 
-@bp.route('/<id>', methods=['GET'])
-def view(id: int):
-    places = Place.query.all()
 
-@bp.route('/', methods=['POST'])
+@bp.route('/create', methods=['POST', 'GET'])
 def create():
     if 'name' in request.form:
         team = Team(request.form['name'])
         db.session.add(team)
         db.session.commit()
+        print('created team')
         return redirect(url_for('team.index'))
-    else:
-        return render_layout()
+
+    return render_layout()
+
+
+@bp.route('/<id>', methods=['GET'])
+def view(id: int):
+    places = Place.query.all()
