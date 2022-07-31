@@ -1,9 +1,16 @@
+<a class="float-end btn btn-secondary" href="{{ url_for('team.create') }}">Create</a>
+
 {% if teams %}
-    <ul class="list-group">
-    {% for team in teams %}
-        <li class="list-group-item">{{team}}</li>
-    {% endfor %}
-    </ul>
+<table class="table">
+    <thead>
+        <tr><th>Name</th></tr>
+    </thead>
+    <tbody>
+        {% for team in teams %}
+        <tr><td>{{team}}</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% else %}
-    No teams found.
+    No locations found.
 {% endif %}
