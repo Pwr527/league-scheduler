@@ -28,7 +28,7 @@ def view():
         flash(e)
     
     if schedule:
-        for game in schedule if schedule:
+        for game in schedule:
             game.team1 = Team.query.get(game.team1)
             game.team2 = Team.query.get(game.team2)
 
