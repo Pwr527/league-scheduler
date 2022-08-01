@@ -27,9 +27,10 @@ def view():
     except Exception as e:
         flash(e)
     
-    for game in schedule:
-        game.team1 = Team.query.get(game.team1)
-        game.team2 = Team.query.get(game.team2)
+    if schedule:
+        for game in schedule if schedule:
+            game.team1 = Team.query.get(game.team1)
+            game.team2 = Team.query.get(game.team2)
 
     return render_layout(page="view", schedule=schedule, title="View schedule")
 
