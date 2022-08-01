@@ -5,6 +5,7 @@ from flask import (
 from scheduler.models import *
 from scheduler import render_layout
 
+
 bp = Blueprint("schedule", __name__, url_prefix="/schedules")
 
 @bp.route('/')
@@ -14,18 +15,26 @@ def index():
 @bp.route('/', methods=['POST'])
 def view():
 
-    teams = list(map(lambda team: Team(team.strip()), request.form['teams'].split(',')))
-    schedule = list(map(lambda date: date.strip(), request.form['dates'].split(',')))
-    places = list(map(lambda loc: Place(loc.strip(), schedule), request.form['places'].split(',')))
+    requested_teams = request.form.getlist('team')
+    requested_locations = request.form.getlist('location')
+    locations = Location.query.filter(Location.id.in_(requested_locations))
 
-    scheduler = Scheduler(teams, places)
+    schedule=None
+
+    scheduler = Scheduler(requested_teams, locations)
     try:
         schedule = scheduler.schedule_games()
     except Exception as e:
         flash(e)
     
+    for game in schedule:
+        game.team1 = Team.query.get(game.team1)
+        game.team2 = Team.query.get(game.team2)
+
     return render_layout(page="view", schedule=schedule, title="View schedule")
 
 @bp.route('/create')
 def create():
-    return render_layout()
+    teams = Team.query.all()
+    locations = Location.query.all()
+    return render_layout(teams=teams, locations=locations)

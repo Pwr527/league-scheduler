@@ -1,15 +1,31 @@
 <form method="POST" action="{{ url_for('schedule.view') }}">
-    <div class="mb-3">
-        <label for="teams" class="form-label">Team names</label>
-        <input type="text" class="form-control" id="teams" name="teams" placeholder="Team names, comma separated">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <h3>Select teams</h3>
+        <ul class="list-group">
+          {% for team in teams %}
+          <li class="list-group-item">
+            <input name="team" value="{{team.id}}" class="form-check-input me-1" type="checkbox" value="" aria-label="{{team}}" rt>
+            {{ team }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-sm">
+        <h3>Select locations</h3>
+        <ul class="list-group">
+          {% for loc in locations %}
+          <li class="list-group-item">
+            <input name="location" value="{{loc.id}}" class="form-check-input me-1" type="checkbox" value="" aria-label="{{loc}}" rt>
+            {{ loc }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-    <div class="mb-3">
-        <label for="dates" class="form-label">Available dates</label>
-        <input type="text" class="form-control" id="dates" name="dates" placeholder="Date/times, comma separated">
-    </div>
-    <div class="mb-3">
-        <label for="places" class="form-label">Locations</label>
-        <input type="text" class="form-control" id="places" name="places" placeholder="Locations, comma separated">
-        </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+<br/>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>

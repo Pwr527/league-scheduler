@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      - postgres
     command: ["sh", "-c", "flask create-db && pip install debugpy -t /tmp && python /tmp/debugpy --listen 0.0.0.0:5678 -m flask run --no-debugger --host 0.0.0.0 --port 8080"]
     volumes:
       - .:/app

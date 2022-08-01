@@ -3,7 +3,6 @@ import click
 from flask import Flask, render_template, current_app
 from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
-import importlib
 
 db = SQLAlchemy()
 
@@ -17,10 +16,10 @@ def create_app():
         LAYOUT = "_layout.html"
     )
 
-    from .controllers import team, schedule, place, api
+    from .controllers import team, schedule, location, api
     
     app.register_blueprint(team.bp)
-    app.register_blueprint(place.bp)
+    app.register_blueprint(location.bp)
     app.register_blueprint(schedule.bp)
     app.register_blueprint(api.bp)
 

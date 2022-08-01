@@ -8,7 +8,7 @@ bp = Blueprint("api", __name__, url_prefix="/api/v1")
 
 @bp.route('/locations')
 def locations():
-    return jsonify(Place.query.all())
+    return jsonify(Location.query.all())
 
 @bp.route('/teams')
 def teams():

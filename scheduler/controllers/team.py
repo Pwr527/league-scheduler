@@ -1,8 +1,9 @@
 from flask import (
-    g, Blueprint, render_template, request, session, url_for, current_app, redirect
+    g, Blueprint, render_template, request, session, url_for, current_app, redirect, flash
 )
 from scheduler.models import *
 from scheduler import render_layout, db
+from sqlalchemy.exc import IntegrityError
 
 bp = Blueprint("team", __name__, url_prefix="/teams")
   
@@ -16,9 +17,13 @@ def index():
 def create():
     if 'name' in request.form:
         team = Team(request.form['name'])
-        db.session.add(team)
-        db.session.commit()
-        print('created team')
+        try:
+            db.session.add(team)
+            db.session.commit()
+        except IntegrityError as e:
+            flash(f"Team name already exists!")
+            return render_layout()
+            
         return redirect(url_for('team.index'))
 
     return render_layout()
@@ -26,4 +31,4 @@ def create():
 
 @bp.route('/<id>', methods=['GET'])
 def view(id: int):
-    places = Place.query.all()
+    locations = Location.query.all()

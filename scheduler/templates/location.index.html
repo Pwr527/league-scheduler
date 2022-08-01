@@ -1,0 +1,22 @@
+<a class="float-end btn btn-secondary" href="{{ url_for('location.create') }}">Create</a>
+
+{% if locations %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Available Times</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for location in locations %}
+        <tr>
+            <td>{{location.name}}</td>
+            <td>{{location.available_times}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    No locations found.
+{% endif %}
