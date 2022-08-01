@@ -26,7 +26,7 @@ def create():
             
         return redirect(url_for('team.index'))
 
-    return render_layout()
+    return render_layout(title="Create team")
 
 
 @bp.route('/<id>', methods=['GET'])

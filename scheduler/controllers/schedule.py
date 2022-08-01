@@ -37,4 +37,4 @@ def view():
 def create():
     teams = Team.query.all()
     locations = Location.query.all()
-    return render_layout(teams=teams, locations=locations)
+    return render_layout(teams=teams, locations=locations, title="Create schedule")

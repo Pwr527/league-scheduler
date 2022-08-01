@@ -24,4 +24,4 @@ def create():
             return render_layout()
         return redirect(url_for('location.index'))
     else:
-        return render_layout()
+        return render_layout(title="Create location")
