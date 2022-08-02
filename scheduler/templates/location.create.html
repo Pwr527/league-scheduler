@@ -1,7 +1,12 @@
 <form method="POST" action="{{ url_for('location.create') }}">
     <div class="mb-3">
-        <label for="teams" class="form-label">Location name</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Location name">
+        <label for="teams" class="form-label">Stadium Name</label>
+        <input type="text" class="form-control" id="available_times" name="available_times" placeholder="Stadium Name">
+    </div>
+    
+    <div class="mb-3">
+        <label for="teams" class="form-label">Field or Court Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Field or Court Name">
     </div>
     <div class="mb-3">
         <label for="teams" class="form-label">Available date/times</label>
