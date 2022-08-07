@@ -1,8 +1,8 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
 FROM python:3.9-slim
 
-RUN apt-get update && apt upgrade
-RUN apt-get install -y python3-psycopg2 libpq-dev gcc 
+RUN apt update && apt upgrade -y
+RUN apt install -y python3-psycopg2 libpq-dev gcc npm
 
 EXPOSE 8080
 
@@ -16,6 +16,7 @@ ENV PYTHONUNBUFFERED=1
 COPY scheduler/requirements.txt .
 RUN python -m pip install -r requirements.txt
 
+RUN cd frontend && npm run build
 WORKDIR /app
 COPY . /app
 
