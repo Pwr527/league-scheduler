@@ -9,3 +9,4 @@ varname
 psycopg2
 Flask-SQLAlchemy
 Flask-Migrate
+flask-cors

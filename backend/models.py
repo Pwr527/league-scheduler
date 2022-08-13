@@ -4,8 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ARRAY, Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from varname import nameof
-from scheduler import db
+from backend import db
 from dataclasses import dataclass
+from flask import jsonify
 
 
 @dataclass
@@ -82,3 +83,24 @@ class Team(db.Model):
     def __str__(self):
         return self.name
 
+
+class ApiResponse():
+    status: int = None
+    error: str = None
+    data: object = None
+    
+    def __init__(self, data=None, status=None, error=None) -> None:
+        self.data = data 
+        self.status = status
+        self.error = error
+    
+    def __repr__(self):
+        return self.serialize()
+    
+    def serialize(self):
+        return {
+            nameof(self.status): ("error" if self.error else "ok"),
+            nameof(self.error): self.error,
+            nameof(self.data): self.data,
+            "data_type": str(type(self.data).__name__)
+        }

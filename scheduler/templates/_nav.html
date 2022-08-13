@@ -1,5 +1,0 @@
-<ul class="nav nav-pills">
-  {% for key, value in NAV.items() %}
-  <li class="nav-item"><a href="{{ url_for(key) }}" class="nav-link{% if request.endpoint == key %} active{% endif %}">{{ value }}</a></li>
-  {% endfor %}
-</ul>
